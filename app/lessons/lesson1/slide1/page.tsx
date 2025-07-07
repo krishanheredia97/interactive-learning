@@ -18,9 +18,14 @@ export default function Slide1() {
   const canvasRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const lastPositionRef = useRef<Position>({ x: 0, y: 0 });
-  const [showAnimation, setShowAnimation] = useState(false);
+  const [showHospitalBranch, setShowHospitalBranch] = useState(false);
+  const [showBrainBranches, setShowBrainBranches] = useState(false);
+  const hospitalRef = useRef<HTMLDivElement>(null);
   const brainRef = useRef<HTMLDivElement>(null);
   const syringeRef = useRef<HTMLDivElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
+  const stethoscopeRef = useRef<HTMLDivElement>(null);
+  const ambulanceRef = useRef<HTMLDivElement>(null);
   const contentContainerRef = useRef<HTMLDivElement>(null);
   
   const [transform, setTransform] = useState<Transform>({
@@ -121,9 +126,18 @@ export default function Slide1() {
     };
   }, []);
 
-  // Function to handle emoji click
-  const handleEmojiClick = () => {
-    setShowAnimation(prev => !prev);
+  // Function to handle hospital emoji click
+  const handleHospitalClick = () => {
+    setShowHospitalBranch(prev => !prev);
+    if (!showHospitalBranch) {
+      // If opening the hospital branch, ensure brain branches are closed
+      setShowBrainBranches(false);
+    }
+  };
+
+  // Function to handle brain emoji click
+  const handleBrainClick = () => {
+    setShowBrainBranches(prev => !prev);
   };
 
   return (
@@ -144,47 +158,152 @@ export default function Slide1() {
             transformOrigin: '0 0',
           }}
         >
+          {/* Hospital (Root) */}
           <div
-            ref={brainRef}
+            ref={hospitalRef}
             className="emoji"
             style={{
               position: 'absolute',
               left: '50%',
-              top: '50%',
+              top: '30%',
               transform: 'translate(-50%, -50%)',
               cursor: 'pointer',
               fontSize: '5.5rem',
               zIndex: 1,
             }}
-            onClick={handleEmojiClick}
+            onClick={handleHospitalClick}
           >
-            🧠
+            🏥
           </div>
 
-          {showAnimation && (
+          {/* Brain (Child of Hospital) */}
+          {showHospitalBranch && (
             <>
               <motion.div
-                ref={syringeRef}
+                ref={brainRef}
                 className="emoji-secondary"
                 style={{
                   position: 'absolute',
-                  left: 'calc(50% + 150px)',
+                  left: '50%',
                   top: '50%',
                   transform: 'translate(-50%, -50%)',
-                  fontSize: '4.5rem',
+                  cursor: 'pointer',
+                  fontSize: '5.5rem',
                   zIndex: 1,
                 }}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
+                onClick={handleBrainClick}
               >
-                💉
+                🧠
               </motion.div>
               <AnimatedLine
-                startEl={brainRef}
-                endEl={syringeRef}
+                startEl={hospitalRef}
+                endEl={brainRef}
                 containerEl={contentContainerRef}
               />
+
+              {/* Children of Brain */}
+              {showBrainBranches && (
+                <>
+                  {/* Syringe - Bottom Right */}
+                  <motion.div
+                    ref={syringeRef}
+                    className="emoji-secondary"
+                    style={{
+                      position: 'absolute',
+                      left: 'calc(50% + 120px)',
+                      top: 'calc(50% + 120px)',
+                      transform: 'translate(-50%, -50%)',
+                      fontSize: '4.5rem',
+                      zIndex: 1,
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    💉
+                  </motion.div>
+                  <AnimatedLine
+                    startEl={brainRef}
+                    endEl={syringeRef}
+                    containerEl={contentContainerRef}
+                  />
+                  
+                  {/* Pill - Bottom Left */}
+                  <motion.div
+                    ref={pillRef}
+                    className="emoji-secondary"
+                    style={{
+                      position: 'absolute',
+                      left: 'calc(50% - 120px)',
+                      top: 'calc(50% + 120px)',
+                      transform: 'translate(-50%, -50%)',
+                      fontSize: '4.5rem',
+                      zIndex: 1,
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    💊
+                  </motion.div>
+                  <AnimatedLine
+                    startEl={brainRef}
+                    endEl={pillRef}
+                    containerEl={contentContainerRef}
+                  />
+                  
+                  {/* Stethoscope - Bottom */}
+                  <motion.div
+                    ref={stethoscopeRef}
+                    className="emoji-secondary"
+                    style={{
+                      position: 'absolute',
+                      left: '50%',
+                      top: 'calc(50% + 170px)',
+                      transform: 'translate(-50%, -50%)',
+                      fontSize: '4.5rem',
+                      zIndex: 1,
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    🩺
+                  </motion.div>
+                  <AnimatedLine
+                    startEl={brainRef}
+                    endEl={stethoscopeRef}
+                    containerEl={contentContainerRef}
+                  />
+                  
+                  {/* Ambulance - Bottom */}
+                  <motion.div
+                    ref={ambulanceRef}
+                    className="emoji-secondary"
+                    style={{
+                      position: 'absolute',
+                      left: '50%',
+                      top: 'calc(50% + 240px)',
+                      transform: 'translate(-50%, -50%)',
+                      fontSize: '4.5rem',
+                      zIndex: 1,
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    🚑
+                  </motion.div>
+                  <AnimatedLine
+                    startEl={brainRef}
+                    endEl={ambulanceRef}
+                    containerEl={contentContainerRef}
+                  />
+                </>
+              )}
             </>
           )}
         </div>
