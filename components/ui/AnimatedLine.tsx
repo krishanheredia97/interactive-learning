@@ -7,9 +7,9 @@ interface Point {
 }
 
 interface AnimatedLineProps {
-  startEl: { current: HTMLElement | null };
-  endEl: { current: HTMLElement | null };
-  containerEl: { current: HTMLElement | null };
+  startEl: RefObject<HTMLElement | HTMLDivElement | null>;
+  endEl: RefObject<HTMLElement | HTMLDivElement | null>;
+  containerEl: RefObject<HTMLElement | HTMLDivElement | null>;
   color?: string;
   thickness?: number;
 }

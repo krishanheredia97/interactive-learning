@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import AnimatedLine from '@/components/ui/AnimatedLine';
+import Emoji from '@/components/ui/Emoji';
 import { motion } from 'framer-motion';
 
 interface Position {
@@ -159,45 +160,28 @@ export default function Slide1() {
           }}
         >
           {/* Hospital (Root) */}
-          <div
-            ref={hospitalRef}
-            className="emoji"
-            style={{
-              position: 'absolute',
-              left: '50%',
-              top: '30%',
-              transform: 'translate(-50%, -50%)',
-              cursor: 'pointer',
-              fontSize: '5.5rem',
-              zIndex: 1,
-            }}
+          <Emoji
+            symbol="🏥"
+            size="5.5rem"
+            position={{ top: '30%' }}
+            isClickable={true}
             onClick={handleHospitalClick}
-          >
-            🏥
-          </div>
+            elementRef={hospitalRef}
+          />
 
           {/* Brain (Child of Hospital) */}
           {showHospitalBranch && (
             <>
-              <motion.div
-                ref={brainRef}
-                className="emoji-secondary"
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  cursor: 'pointer',
-                  fontSize: '5.5rem',
-                  zIndex: 1,
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
+              <Emoji
+                symbol="🧠"
+                size="5.5rem"
+                position={{ top: '50%' }}
+                isClickable={true}
                 onClick={handleBrainClick}
-              >
-                🧠
-              </motion.div>
+                elementRef={brainRef}
+                animate={true}
+                className="emoji-secondary"
+              />
               <AnimatedLine
                 startEl={hospitalRef}
                 endEl={brainRef}
@@ -208,23 +192,14 @@ export default function Slide1() {
               {showBrainBranches && (
                 <>
                   {/* Syringe - Bottom Right */}
-                  <motion.div
-                    ref={syringeRef}
+                  <Emoji
+                    symbol="💉"
+                    size="4.5rem"
+                    position={{ left: 'calc(50% + 120px)', top: 'calc(50% + 120px)' }}
+                    elementRef={syringeRef}
+                    animate={true}
                     className="emoji-secondary"
-                    style={{
-                      position: 'absolute',
-                      left: 'calc(50% + 120px)',
-                      top: 'calc(50% + 120px)',
-                      transform: 'translate(-50%, -50%)',
-                      fontSize: '4.5rem',
-                      zIndex: 1,
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    💉
-                  </motion.div>
+                  />
                   <AnimatedLine
                     startEl={brainRef}
                     endEl={syringeRef}
@@ -232,23 +207,14 @@ export default function Slide1() {
                   />
                   
                   {/* Pill - Bottom Left */}
-                  <motion.div
-                    ref={pillRef}
+                  <Emoji
+                    symbol="💊"
+                    size="4.5rem"
+                    position={{ left: 'calc(50% - 120px)', top: 'calc(50% + 120px)' }}
+                    elementRef={pillRef}
+                    animate={true}
                     className="emoji-secondary"
-                    style={{
-                      position: 'absolute',
-                      left: 'calc(50% - 120px)',
-                      top: 'calc(50% + 120px)',
-                      transform: 'translate(-50%, -50%)',
-                      fontSize: '4.5rem',
-                      zIndex: 1,
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    💊
-                  </motion.div>
+                  />
                   <AnimatedLine
                     startEl={brainRef}
                     endEl={pillRef}
@@ -256,23 +222,14 @@ export default function Slide1() {
                   />
                   
                   {/* Stethoscope - Bottom */}
-                  <motion.div
-                    ref={stethoscopeRef}
+                  <Emoji
+                    symbol="🩺"
+                    size="4.5rem"
+                    position={{ top: 'calc(50% + 170px)' }}
+                    elementRef={stethoscopeRef}
+                    animate={true}
                     className="emoji-secondary"
-                    style={{
-                      position: 'absolute',
-                      left: '50%',
-                      top: 'calc(50% + 170px)',
-                      transform: 'translate(-50%, -50%)',
-                      fontSize: '4.5rem',
-                      zIndex: 1,
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    🩺
-                  </motion.div>
+                  />
                   <AnimatedLine
                     startEl={brainRef}
                     endEl={stethoscopeRef}
@@ -280,23 +237,14 @@ export default function Slide1() {
                   />
                   
                   {/* Ambulance - Bottom */}
-                  <motion.div
-                    ref={ambulanceRef}
+                  <Emoji
+                    symbol="🚑"
+                    size="4.5rem"
+                    position={{ top: 'calc(50% + 240px)' }}
+                    elementRef={ambulanceRef}
+                    animate={true}
                     className="emoji-secondary"
-                    style={{
-                      position: 'absolute',
-                      left: '50%',
-                      top: 'calc(50% + 240px)',
-                      transform: 'translate(-50%, -50%)',
-                      fontSize: '4.5rem',
-                      zIndex: 1,
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    🚑
-                  </motion.div>
+                  />
                   <AnimatedLine
                     startEl={brainRef}
                     endEl={ambulanceRef}
