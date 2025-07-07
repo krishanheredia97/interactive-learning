@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import AnimatedLine from '@/components/ui/AnimatedLine';
+import { motion } from 'framer-motion';
 
 interface Position {
   x: number;
@@ -16,6 +18,10 @@ export default function Slide1() {
   const canvasRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const lastPositionRef = useRef<Position>({ x: 0, y: 0 });
+  const [showAnimation, setShowAnimation] = useState(false);
+  const brainRef = useRef<HTMLDivElement>(null);
+  const syringeRef = useRef<HTMLDivElement>(null);
+  const contentContainerRef = useRef<HTMLDivElement>(null);
   
   const [transform, setTransform] = useState<Transform>({
     position: { x: 0, y: 0 },
@@ -117,7 +123,7 @@ export default function Slide1() {
 
   // Function to handle emoji click
   const handleEmojiClick = () => {
-    alert('Lesson 1, Slide 1 Emoji clicked!');
+    setShowAnimation(prev => !prev);
   };
 
   return (
@@ -126,21 +132,62 @@ export default function Slide1() {
         ref={canvasRef} 
         className="canvas"
       >
-        <div 
-          className="emoji"
+        <div
+          ref={contentContainerRef}
           style={{
             transform: `translate(${transform.position.x}px, ${transform.position.y}px) scale(${transform.scale})`,
-            left: '50%',
-            top: '50%',
-            marginLeft: '-0.5em',
-            marginTop: '-0.5em',
-            cursor: 'pointer',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            transformOrigin: '0 0',
           }}
-          onClick={handleEmojiClick}
         >
-          🌟
-        </div>
+          <div
+            ref={brainRef}
+            className="emoji"
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              cursor: 'pointer',
+              fontSize: '5.5rem',
+              zIndex: 1,
+            }}
+            onClick={handleEmojiClick}
+          >
+            🧠
+          </div>
 
+          {showAnimation && (
+            <>
+              <motion.div
+                ref={syringeRef}
+                className="emoji-secondary"
+                style={{
+                  position: 'absolute',
+                  left: 'calc(50% + 150px)',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  fontSize: '4.5rem',
+                  zIndex: 1,
+                }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                💉
+              </motion.div>
+              <AnimatedLine
+                startEl={brainRef}
+                endEl={syringeRef}
+                containerEl={contentContainerRef}
+              />
+            </>
+          )}
+        </div>
       </div>
     </main>
   );
