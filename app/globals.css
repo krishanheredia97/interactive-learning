@@ -55,3 +55,151 @@ body {
   user-select: none;
   transform-origin: center;
 }
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: #f5f5f5;
+  border-right: 1px solid #e0e0e0;
+  padding: 1rem;
+  overflow-y: auto;
+  z-index: 10;
+  color: #333;
+}
+
+.sidebar-header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 1rem;
+}
+
+.home-link {
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+.sidebar-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.lesson-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lesson-item {
+  margin-bottom: 0.5rem;
+}
+
+.lesson-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #333;
+}
+
+.lesson-header:hover {
+  background-color: #e0e0e0;
+}
+
+.lesson-header.active {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+.slide-list {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.slide-item {
+  margin-bottom: 0.25rem;
+}
+
+.slide-item a {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  color: #333;
+  border-radius: 4px;
+}
+
+.slide-item a:hover {
+  background-color: #e0e0e0;
+}
+
+.slide-item a.active {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+.expand-icon {
+  font-size: 0.8rem;
+}
+
+/* Dark mode styles for sidebar */
+@media (prefers-color-scheme: dark) {
+  .sidebar {
+    background-color: #1a1a1a;
+    border-right-color: #333;
+    color: #e0e0e0;
+  }
+  
+  .sidebar-header {
+    border-bottom-color: #333;
+  }
+  
+  .home-link {
+    color: #e0e0e0;
+  }
+  
+  .sidebar-title {
+    color: #e0e0e0;
+  }
+  
+  .lesson-header {
+    color: #e0e0e0;
+  }
+  
+  .lesson-header:hover {
+    background-color: #333;
+  }
+  
+  .lesson-header.active {
+    background-color: #333;
+  }
+  
+  .slide-item a {
+    color: #e0e0e0;
+  }
+  
+  .slide-item a:hover {
+    background-color: #333;
+  }
+  
+  .slide-item a.active {
+    background-color: #333;
+  }
+}
+
+/* Adjust main content to make room for sidebar */
+.canvas-container {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
