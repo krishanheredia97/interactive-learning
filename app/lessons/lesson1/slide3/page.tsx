@@ -1,11 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import AnimatedLine from '@/components/ui/AnimatedLine';
-import Emoji from '@/components/ui/Emoji';
-import Label from '@/components/ui/Label';
-import Tooltip from '@/components/ui/Tooltip';
-import { motion, AnimatePresence } from 'framer-motion';
+import DualChatInterface from '@/components/ui/DualChatInterface';
 
 interface Position {
   x: number;
@@ -21,10 +17,6 @@ export default function Slide3() {
   const canvasRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const lastPositionRef = useRef<Position>({ x: 0, y: 0 });
-  const [showBrainBranch, setShowBrainBranch] = useState(false);
-  const [showBrainTooltip, setShowBrainTooltip] = useState(false);
-  const dogRef = useRef<HTMLDivElement>(null);
-  const brainRef = useRef<HTMLDivElement>(null);
   const contentContainerRef = useRef<HTMLDivElement>(null);
   
   const [transform, setTransform] = useState<Transform>({
@@ -125,20 +117,6 @@ export default function Slide3() {
     };
   }, []);
 
-  // Function to handle dog emoji click
-  const handleDogClick = () => {
-    setShowBrainBranch(prev => !prev);
-    if (showBrainBranch) {
-      // If closing the brain branch, ensure tooltip is closed
-      setShowBrainTooltip(false);
-    }
-  };
-
-  // Function to handle brain emoji click
-  const handleBrainClick = () => {
-    setShowBrainTooltip(prev => !prev);
-  };
-
   return (
     <main className="canvas-container">
       <div 
@@ -157,84 +135,20 @@ export default function Slide3() {
             transformOrigin: '0 0',
           }}
         >
-          {/* Dog Emoji (Root) with Label */}
-          <div style={{ position: 'relative' }}>
-            <Emoji
-              symbol="💬"
-              size="5.5rem"
-              position={{ top: '30%' }}
-              isClickable={true}
-              onClick={handleDogClick}
-              elementRef={dogRef}
-            />
-            <div style={{ 
-              position: 'absolute',
-              left: '50%',
-              top: '30%',
-              transform: 'translate(-50%, -150%)',
-              zIndex: 5
-            }}>
-              <Label 
-                text="perro"
-                className="dog-label"
-              />
-            </div>
+          {/* Chat Interface - Smaller Size */}
+          <div style={{ 
+            position: 'absolute',
+            left: '50%', 
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '600px', 
+            height: '400px',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
+          }}>
+            <DualChatInterface initialAnimationState={0} />
           </div>
-
-          {/* Brain (Child of Dog) */}
-          {showBrainBranch && (
-            <>
-              <Emoji
-                symbol="🧠"
-                size="5rem"
-                position={{ top: '40%' }}
-                isClickable={true}
-                onClick={handleBrainClick}
-                elementRef={brainRef}
-                animate={true}
-                className="emoji-secondary"
-              />
-              <AnimatedLine
-                startEl={dogRef}
-                endEl={brainRef}
-                containerEl={contentContainerRef}
-              />
-
-              {/* Custom Tooltip for Brain with related words */}
-              <AnimatePresence>
-                {showBrainTooltip && (
-                  <motion.div
-                    className="brain-tooltip"
-                    style={{
-                      position: 'absolute',
-                      zIndex: 10,
-                      left: '50%',
-                      top: '50%',
-                      transform: 'translateX(-50%)',
-                      backgroundColor: 'white',
-                      borderRadius: '12px',
-                      padding: '12px',
-                      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '8px',
-                      justifyContent: 'center',
-                      maxWidth: '200px',
-                      border: '1px solid rgba(0, 0, 0, 0.1)',
-                    }}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div style={{ fontSize: '1rem', padding: '4px 0', color: '#333', fontWeight: 500 }}>gato</div>
-                    <div style={{ fontSize: '1rem', padding: '4px 0', color: '#333', fontWeight: 500 }}>mascota</div>
-                    <div style={{ fontSize: '1rem', padding: '4px 0', color: '#333', fontWeight: 500 }}>ladrar</div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
-          )}
         </div>
       </div>
     </main>
