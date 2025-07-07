@@ -29,7 +29,7 @@ export default function Sidebar() {
     const availableLessons: LessonStructure[] = [
       {
         name: 'lesson1',
-        slides: ['slide1'] // Only including slide1 since it has a page.tsx file
+        slides: ['slide1', 'slide2', 'slide3', 'slide4', 'slide5', 'slide6'] // All 6 slides
       },
       {
         name: 'lesson2',

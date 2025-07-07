@@ -69,8 +69,8 @@ const ThinkingBox: React.FC<ThinkingBoxProps> = ({
               style={{ 
                 fontSize: '1rem', 
                 color: word.isHighlighted ? '#4CAF50' : '#e0e0e0',
-                textDecoration: word.isCrossedOut ? 'line-through' : 'none',
-                textDecorationColor: 'red',
+                textDecorationLine: word.isCrossedOut ? 'line-through' : 'none',
+                textDecorationColor: word.isCrossedOut ? 'red' : 'transparent',
                 textDecorationThickness: '2px',
                 padding: '4px 0',
                 textAlign: 'center'
